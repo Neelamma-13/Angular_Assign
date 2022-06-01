@@ -1,0 +1,153 @@
+<app-header></app-header>
+<div class="well">
+    <h2>Add User</h2>
+    <hr>
+    <div class="display">
+        <div style="display: flex; flex-direction:column; height: 50vh">
+            
+                <img [src]=" imageUrl"style="width:250px; height: 200px; ">
+                <input id="file-upload" type="file"  (change)="handleFileInput($event)"  #Image accept="image/png" />
+                <label for="file-upload" class=" btn btn-info custom-file-upload">Add Image
+            </label>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                    <form ngNativeValidate (ngSubmit)="SaveUser(user)">
+                        <div id="user-data">
+                            <h3>Basic Details</h3>
+                            <div class="form-group">
+                                <label for="userName">userName<font color="black">*</font></label>
+                                <input type="text" class="form-control" [(ngModel)]="user.userName" name="user"
+                                    maxlength="20" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="firstName">First Name<font color="black">*</font></label>
+                                        <input type="text" id="firstName" class="form-control"
+                                        [(ngModel)]="user.firstName" name="first" required maxlength="30">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" class="form-control"
+                                        [(ngModel)]="user.lastName" name="last" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="gender">Gender<font color="black">*</font></label><br>
+                                        <label class="radio-inline box"><input type="radio" name="male"
+                                                [(ngModel)]="user.gender" name="gender" value="male">Male</label>
+                                        <label class="radio-inline box"><input type="radio" name="female"
+                                                [(ngModel)]="user.gender" name="gender" value="female">Female</label>
+                                        <label class="radio-inline box"><input type="radio" name="tgender"
+                                                [(ngModel)]="user.gender" name="gender"
+                                                value="transgender">TransGender</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dateOfBirth">Date of birth<font color="black">*</font></label><br>
+                                        <input type="date" class="form-group col-md-12" id="dateOfBirth" name="dob"
+                                            value="" size="50" [(ngModel)]="user.dateOfBirth" name="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="emailId">Mail<font color="black">*</font></label>
+                                        <input type="email" id="emailId" class="form-control" [(ngModel)]="user.emailId"
+                                            name="email" required email #emailId>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <label for="mobileNumber">Mobile Number<font color="black">*</font></label><br>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">+91</span>
+                                            <input
+                                                oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                type="number" id="mobileNumber" class="form-control" maxlength="10"
+                                                [(ngModel)]="user.mobileNumber" name="mobile" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Address</h3>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="addressField1">AddressField 1<font color="black">*</font></label>
+                                    <input type="text" id="addressField1" class="form-control"
+                                        [(ngModel)]="user.addressField1" name="address" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="addressField2">AddressField 2</label>
+                                    <input type="text" id="addressField2" class="form-control"
+                                        [(ngModel)]="user.addressField2" name="address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="country">Country<font color="black">*</font></label>
+                                    <select class="form-control" [(ngModel)]="selectedCountry" [ngModelOptions]="{standalone:true}">
+                                        <option [ngValue]="country" *ngFor="let country of countryList" required>{{country}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="state">State<font color="black">*</font></label>
+                                    <select class="form-control" [(ngModel)]="selectedState" [ngModelOptions]="{standalone:true}">
+                                        <option [ngValue]="state" *ngFor="let state of stateList">{{state}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="roles">Role<font color="black">*</font></label>
+                                    <input id="roles" list="roles" class="form-control" [(ngModel)]="user.roles"
+                                        name="role" required>
+                                    <datalist id="roles">
+                                        <option value="ITOuser">
+                                        <option value="Admin">
+                                    </datalist>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="timeZone">TimeZone<font color="black">*</font></label>
+                                    <input list="zones" id="timeZone" class="form-control" [(ngModel)]="user.timeZone"
+                                        name="time" required>
+                                    <datalist id="zones">
+                                        <option value="Kolkata">
+                                        <option value="America/newyork">
+                                    </datalist>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="zipCode">ZipCode<font color="black">*</font></label>
+                                    <input type="text" id="zipCode" class="form-control" [(ngModel)]="user.zipCode"
+                                        name="zip" maxlength="20" required>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary navbar-right marginRight " type="submit"
+                            (click)="onCancel()">Cancel</button>
+                        <button class="btn btn-primary navbar-right  marginRight" type="submit">Submit</button><br><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<app-footer></app-footer>

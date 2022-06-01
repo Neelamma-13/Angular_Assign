@@ -1,0 +1,29 @@
+<div class="app">
+    <div class="box">
+        <img class="title" src="https://itorizon.com/wp-content/uploads/2021/08/ITO119.png" />
+        <div *ngIf="isLoading" style="text-align: center; ">
+            <app-loading></app-loading>
+        </div>
+
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+            <div class="row">
+                <label class="user" for="userName">UserName</label>
+                <input type="username" id="userName" ngModel name="userName" required />
+            </div>
+            <div class="row">
+                <label class="pwd" for="password">Password</label>
+                <input type="password" id="password" ngModel name="password" required minlength="4" />
+            </div>
+            <div class="forgot">
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <div><a href="#">Forgot password?</a></div>
+
+            <button class="btn  btn-info btn-block" style="height: 6vh;" type="submit" [disabled]="!authForm.valid">
+                Login
+            </button>
+            <a class="mt-5 mb-3 text-info " style="cursor: pointer;">You don't have an Account Register here</a>
+        </form>
+    </div>
+</div>

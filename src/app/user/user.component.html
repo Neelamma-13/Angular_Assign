@@ -1,0 +1,54 @@
+<router-outlet></router-outlet>
+<div style="background-color: skyblue; padding-top: 2em;">
+    <img src="https://cdn-icons-png.flaticon.com/128/633/633781.png" width="50" height="50">
+</div>
+<div class="container" style="padding-bottom: 2em; padding-top: 2em;">
+    <div>
+        <p-button (click)="onClick()" icon="pi pi-info-circle" label="+Add"></p-button>
+        <p-dialog [(visible)]="opens" class="dialog">
+            <form [formGroup]="userForm" (ngSubmit)="onsubmit(userName)" #v="ngForm">
+                <label for="userName">USERNAME</label>
+                <input type="text" id="userName" class="form-control" formControlName="userName"
+                    [ngClass]="{'is-invalid':userForm.get('userName').errors}" name="userName" maxlength="8" required
+                    [(ngModel)]="userName">
+                <span id="userName" class="help-block">{{error}}</span>
+                <div>
+                    <button type="submit" class="btn btn-info" [disabled]="!v.valid">Add</button>|
+                    <button (click)="onCancel()" class="btn btn-info">Cancel</button>
+                </div>
+            </form>
+        </p-dialog>
+    </div>
+    <hr>
+    <div>
+        <p-table [value]="usersLists" [style]="{'text-align': 'center', 'font-size': '20px', 'font-family': 'sans-serif'}" [paginator]="true" [rows]="rows" [(first)]="first">
+            <ng-template pTemplate="header" class="header">
+                <tr style="font-size: 20px; background-color:rgb(242, 242, 242); ">
+                    <th>UserName</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>CreatedDateTime</th>
+                    <th>Options</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-usersLists>
+                <tr>
+                    <td>{{usersLists.userName}}</td>
+                    <td>{{usersLists.firstName}}</td>
+                    <td>{{usersLists.lastName}}</td>
+                    <td>{{usersLists.createdDateTime}}</td>
+                    <td>
+                        <button pButton type="button" label="delete" (click)="deleteData(usersLists.id)"
+                            icon="pi pi-times" class="p-button-text"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <div class="p-mb-3">
+            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+        </div>
+    </div>
+    <hr>
+</div>
