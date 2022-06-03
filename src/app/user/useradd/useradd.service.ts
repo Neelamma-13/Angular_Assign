@@ -25,7 +25,7 @@ export class UserAddService {
     getStates(countryId){
         let requestparam = new HttpParams().set('countryId', countryId);
 
-        return this.http.get('http://localhost:8080/state/getAll',{params:requestparam});
+        return this.http.get('http://localhost:8080/state/getAll?countryId',{params:requestparam});
     }
     
 }
